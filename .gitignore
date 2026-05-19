@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 api/node_modules/
+web/node_modules/
 
 # Environment variables
 .env
@@ -12,6 +13,7 @@ api/.env
 dist/
 api/dist/
 *.tsbuildinfo
+web/.next/
 
 # Logs
 *.log
@@ -30,3 +32,41 @@ coverage/
 *.tmp
 *.temp
 .cache/
+
+
+# dependencies
+web/node_modules
+web/.pnp
+web/.pnp.*
+web/.yarn/*
+web/!.yarn/patches
+web/!.yarn/plugins
+web/!.yarn/releases
+web/!.yarn/versions
+
+# testing
+web/coverage
+
+# next.js
+web/.next/
+web/out/
+
+# production
+web/build
+
+# misc
+web/.DS_Store
+wev/*.pem
+
+# debug
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+web/.pnpm-debug.log*
+
+# vercel
+web/.vercel
+
+# typescript
+web/*.tsbuildinfo
+web/next-env.d.ts
