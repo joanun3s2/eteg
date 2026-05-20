@@ -29,27 +29,37 @@ Eteg is a client registration form for John Doe's company.
 - `pg` - PostgreSQL client
 - `uuidv7` - UUID v7 generation
 
+#### WEB Dependencies
+
+- `next` - A React based framework
+- `react` - A typescript framework for web applications
+- `@tanstack/react-query` - Powerful asynchronous state management
+- `lucide-react` - A pack of customizable icons
+- `react-hook-form` - Form handling lib
+- `sonner` - Toast component for React
+- `zod` - TypeScript-first validation library
+
 ## Initial Setup
 
 ### Quick Setup
 
-To set up the API quickly, run the setup script:
+To set up the project quickly, run the setup script on root directory:
 
 ```bash
-./api/bin/setup.sh
+npm run setup
 ```
 
 This script will:
 
-1. Create a `.env` file from `.env.example`
+1. Create a `.env` `.env.local` files from their respective `.env.example`
 2. Stop any existing Docker containers
 3. Start the PostgreSQL database container
 4. Generate database migrations
 5. Run database migrations
 6. Seed the database with initial data
-7. Start the development server
+7. Start the development API and WEB server
 
-### Manual Setup
+### Manual Setup API
 
 Alternatively, you can set up the API manually by executing the following scripts from the `api` directory:
 
@@ -117,12 +127,31 @@ Starts the development server with hot-reload using `tsx watch`.
 - `db:migrate` - Apply database migrations
 - `db:studio` - Open Drizzle Studio (database GUI)
 - `db:seed` - Seed the database with initial data
-- `setup` - Run the automated setup script
 
 ## Database
 
 The PostgreSQL database runs in a Docker container. The container configuration is defined in `api/docker-compose.yaml`. The database is accessible on port `5432` by default.
 
-#### Fronted
+### Manual Setup WEB
 
-TODO
+#### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+#### 2. Environment Configuration
+
+Create a `.env.local` file from `.env.example`:
+
+```bash
+cp .env.example .env.local
+```
+
+#### 3. Start the web app
+
+Simply run:
+
+```bash
+npm run start
+```
