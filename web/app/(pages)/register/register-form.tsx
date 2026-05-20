@@ -5,8 +5,9 @@ import FormButton from '@/components/ui/form-button';
 import FormInput from '@/components/ui/form-input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Save } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
+import { formatCPF } from '@/utils/formatters';
 
 const createClientSchema = z.object({
   fullname: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
@@ -23,6 +24,7 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     reset,
+    control,
     formState: { errors, isValid },
   } = useForm<CreateClientData>({
     resolver: zodResolver(createClientSchema),
@@ -30,6 +32,8 @@ export default function RegisterForm() {
   });
 
   async function onSubmit(data: CreateClientData) {
+    // a better solution could be implemented if I had more time :P
+    data.cpf = data.cpf.replace(/\D/g, '').slice(0, 11);
     console.log(data);
     reset();
   }
@@ -57,12 +61,26 @@ export default function RegisterForm() {
         error={errors.email?.message}
       />
 
-      <FormInput
+      <Controller
+        control={control}
+        name='cpf'
+        render={({ field }) => (
+          <FormInput
+            label='CPF'
+            mandatory={true}
+            {...register('cpf', { required: true })}
+            error={errors.cpf?.message}
+            value={formatCPF(field.value || '')}
+          />
+        )}
+      />
+
+      {/* <FormInput
         label='CPF'
         mandatory={true}
         {...register('cpf', { required: true })}
         error={errors.cpf?.message}
-      />
+      /> */}
 
       <ColorInput label='Cor favorita' {...register('favoriteColor')} />
 

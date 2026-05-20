@@ -1,3 +1,5 @@
+import { formatCPF } from '@/utils/formatters';
+
 type ClientListItemProps = {
   id: string;
   fullname: string;
@@ -12,7 +14,7 @@ export default function ClientListItem(item: ClientListItemProps) {
     <div className='grid grid-cols-1 md:grid-cols-5 justify-between items-center py-2 w-full gap-30 px-6 py-5'>
       <p className='font-bold'>{item.fullname}</p>
       <p className='text-gray-500 text-sm'>{item.email}</p>
-      <p className='text-gray-500 text-sm'>{item.cpf}</p>
+      <p className='text-gray-500 text-sm'>{formatCPF(item.cpf)}</p>
 
       <p className='font-bold'>{item.observations}</p>
 
