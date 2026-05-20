@@ -57,7 +57,7 @@ export default function ClientList() {
         </div>
         {filteredList &&
           filteredList.map((client, index) => (
-            <div key={index} className='w-full'>
+            <div key={client.id} className='w-full'>
               <ClientListItem {...client} />
               {index !== filteredList.length - 1 && <Divider />}
             </div>

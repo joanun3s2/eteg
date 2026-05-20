@@ -7,7 +7,7 @@ export default function Register() {
     <div className='bg-transparent flex flex-col items-center gap-6 my-6'>
       <div className='flex items-center gap-15'>
         <div>
-          <Image src={register} width={200} height={200} alt='logo' />
+          <Image src={register} width={200} height={200} alt='logo' priority />
         </div>
         <div>
           <h2 className='text-2xl font-bold'>Cadastrar um novo cliente</h2>
