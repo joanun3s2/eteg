@@ -35,6 +35,7 @@ coverage/
 
 
 # dependencies
+api/.pnpm-store
 web/node_modules
 web/.pnp
 web/.pnp.*

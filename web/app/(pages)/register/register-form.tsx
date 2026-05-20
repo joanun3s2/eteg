@@ -12,7 +12,10 @@ import { formatCPF } from '@/utils/formatters';
 const createClientSchema = z.object({
   fullname: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
   email: z.email('Email inválido'),
-  cpf: z.string().min(11, 'CPF deve ter 11 dígitos'),
+  cpf: z
+    .string()
+    .min(14, 'CPF deve ter 11 dígitos')
+    .max(14, 'CPF deve ter 11 dígitos'),
   favoriteColor: z.string().optional(),
   observations: z.string().optional(),
 });

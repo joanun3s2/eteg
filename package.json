@@ -2,6 +2,9 @@
   "name": "eteg",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+    "setup": "./bin/setup.sh"
+  },
   "private": true,
   "workspaces": [
     "api"
