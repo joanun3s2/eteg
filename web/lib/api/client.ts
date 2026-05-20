@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3333';
+import { env } from '@/app/env';
 
 type RequestOptions = RequestInit & {
   token?: string;
@@ -10,7 +10,7 @@ export async function apiFetch<T>(
 ): Promise<T> {
   const { headers, ...rest } = options;
 
-  const response = await fetch(`${API_URL}${endpoint}`, {
+  const response = await fetch(`${env.NEXT_PUBLIC_API_URL}${endpoint}`, {
     ...rest,
     headers: {
       'Content-Type': 'application/json',

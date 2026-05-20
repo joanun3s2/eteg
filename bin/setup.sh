@@ -2,9 +2,11 @@
 
 echo "Starting setup..."
 
-echo "Creating .env file for api..."
+echo "Creating .env files..."
 
 cp api/.env.example api/.env
+
+cp web/.env.example web/.env.local
 
 if [ "$(docker ps -q -f name=eteg_db)" ]; then
   docker compose down
