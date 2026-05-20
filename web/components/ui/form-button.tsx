@@ -1,7 +1,10 @@
+import { LucideIcon } from 'lucide-react';
+
 type formButtonProps = React.ComponentProps<'button'> & {
   label: string;
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
+  icon?: LucideIcon;
   className?: string;
 };
 
@@ -10,6 +13,7 @@ export default function FormButton({
   variant = 'primary',
   disabled = false,
   className,
+  icon: Icon,
   ...props
 }: formButtonProps) {
   const styles = {
@@ -28,6 +32,7 @@ export default function FormButton({
           className,
         ].join(' ')}
       >
+        {Icon && <Icon strokeWidth={3} className='w-5 h-5 mr-2' />}
         {label}
       </button>
     </div>

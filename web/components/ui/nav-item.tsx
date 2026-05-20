@@ -12,10 +12,10 @@ export default function NavItem({
   variant = 'primary',
 }: navItemProps) {
   return (
-    <div className='flex justify-center items-center'>
+    <div className='flex justify-center items-center hover:bg-violet-100 rounded-lg px-2'>
       <div
         className={[
-          variant === 'secondary' ? 'bg-violet-500 rounded-[8px]' : '',
+          variant === 'secondary' ? 'bg-violet-300 rounded-[8px]' : '',
           'flex justify-center items-center p-2',
         ].join(' ')}
       >

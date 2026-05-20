@@ -1,8 +1,10 @@
 'use client';
 
+import ColorInput from '@/components/ui/color-input';
 import FormButton from '@/components/ui/form-button';
 import FormInput from '@/components/ui/form-input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Save } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 
@@ -62,12 +64,7 @@ export default function RegisterForm() {
         error={errors.cpf?.message}
       />
 
-      <FormInput
-        type='color'
-        label='Cor favorita'
-        {...register('favoriteColor')}
-        error={errors.favoriteColor?.message}
-      />
+      <ColorInput label='Cor favorita' {...register('favoriteColor')} />
 
       <FormInput
         className='md:col-span-2'
@@ -77,7 +74,12 @@ export default function RegisterForm() {
       />
 
       <FormButton label='Limpar' variant='secondary' onClick={resetForm} />
-      <FormButton type='submit' label='Cadastrar' disabled={!isValid} />
+      <FormButton
+        type='submit'
+        label='Cadastrar'
+        disabled={!isValid}
+        icon={Save}
+      />
     </form>
   );
 }
