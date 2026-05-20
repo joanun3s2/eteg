@@ -10,6 +10,7 @@ import z from 'zod';
 import { formatCPF } from '@/utils/formatters';
 import { useMutation } from '@tanstack/react-query';
 import { createClient } from '@/lib/api/services/client-service';
+import { toast } from 'sonner';
 
 const createClientSchema = z.object({
   fullname: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
@@ -43,8 +44,7 @@ export default function RegisterForm() {
 
     onSuccess: (data) => {
       console.log('User created:', data);
-
-      alert('User created successfully');
+      toast.success(`User ${data.fullname} created successfully!`);
 
       reset();
     },
@@ -52,7 +52,7 @@ export default function RegisterForm() {
     onError: (error) => {
       console.error(error);
 
-      alert('Failed to create user');
+      toast.error('Failed to create user');
     },
   });
 
