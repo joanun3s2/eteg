@@ -8,6 +8,8 @@ import { Save } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
 import z from 'zod';
 import { formatCPF } from '@/utils/formatters';
+import { useMutation } from '@tanstack/react-query';
+import { createClient } from '@/lib/api/services/client-service';
 
 const createClientSchema = z.object({
   fullname: z.string().min(3, 'O nome deve ter no mínimo 3 caracteres'),
@@ -23,6 +25,7 @@ const createClientSchema = z.object({
 type CreateClientData = z.infer<typeof createClientSchema>;
 
 export default function RegisterForm() {
+  // form
   const {
     register,
     handleSubmit,
@@ -34,11 +37,31 @@ export default function RegisterForm() {
     mode: 'onChange',
   });
 
+  // api call
+  const mutation = useMutation({
+    mutationFn: createClient,
+
+    onSuccess: (data) => {
+      console.log('User created:', data);
+
+      alert('User created successfully');
+
+      reset();
+    },
+
+    onError: (error) => {
+      console.error(error);
+
+      alert('Failed to create user');
+    },
+  });
+
+  //handle submit
   async function onSubmit(data: CreateClientData) {
     // a better solution could be implemented if I had more time :P
     data.cpf = data.cpf.replace(/\D/g, '').slice(0, 11);
-    console.log(data);
-    reset();
+
+    mutation.mutate(data);
   }
 
   function resetForm() {
@@ -77,13 +100,6 @@ export default function RegisterForm() {
           />
         )}
       />
-
-      {/* <FormInput
-        label='CPF'
-        mandatory={true}
-        {...register('cpf', { required: true })}
-        error={errors.cpf?.message}
-      /> */}
 
       <ColorInput label='Cor favorita' {...register('favoriteColor')} />
 

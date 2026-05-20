@@ -3,73 +3,35 @@
 import SearchInput from '@/components/ui/search-input';
 import ClientListItem from './client-list-item';
 import Divider from '@/components/ui/divider';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { RefreshCcw } from 'lucide-react';
-
-const clients = [
-  {
-    id: '1',
-    fullname: 'John Doe',
-    cpf: '54883268047',
-    email: 'john@eteg.com',
-    favoriteColor: '#278BF5',
-    observations: 'first entry',
-  },
-  {
-    id: '2',
-    fullname: 'joao lima',
-    cpf: '54883268047',
-    email: 'joao@email.com',
-    favoriteColor: '#7627f5ff',
-    observations: 'second entry',
-  },
-  {
-    id: '3',
-    fullname: 'jonny morango',
-    cpf: '54883268047',
-    email: 'jonny@eteg.com',
-    favoriteColor: '#f58427ff',
-    observations: '',
-  },
-  {
-    id: '4',
-    fullname: 'maria januario',
-    cpf: '54883268047',
-    email: 'maria@eteg.com',
-    favoriteColor: '#1b9b0aff',
-    observations: 'test',
-  },
-  {
-    id: '5',
-    fullname: 'jose dias',
-    cpf: '54883268047',
-    email: 'jose@eteg.com',
-    favoriteColor: '',
-    observations: '',
-  },
-];
+import { useQuery } from '@tanstack/react-query';
+import { getClients } from '@/lib/api/services/client-service';
+import { Client } from '@/lib/api/types/client';
 
 export default function ClientList() {
   const [search, setSearch] = useState('');
-  const [list, setList] = useState(clients);
 
-  const handleSearch = (value: string) => {
-    setList(
-      clients.filter((client) =>
-        client.fullname.toLowerCase().includes(value.toLowerCase()),
-      ),
+  const { data, isLoading } = useQuery({
+    queryKey: ['clients'],
+    queryFn: getClients,
+  });
+
+  const filteredList = useMemo(() => {
+    if (!data) return [];
+
+    return data.filter((client: Client) =>
+      client.fullname.toLowerCase().includes(search.toLowerCase()),
     );
-  };
+  }, [data, search]);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div>
-      <form
-        className='flex gap-4 items-center py-2'
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSearch(search);
-        }}
-      >
+      <form className='flex gap-4 items-center py-2'>
         <SearchInput
           placeholder='Pesquisar clientes...'
           value={search}
@@ -81,10 +43,7 @@ export default function ClientList() {
             strokeWidth={2}
             color='gray'
             className='w-5 h-5 cursor-pointer'
-            onClick={() => {
-              setSearch('');
-              setList(clients);
-            }}
+            onClick={() => setSearch('')}
           />
         )}
       </form>
@@ -96,12 +55,13 @@ export default function ClientList() {
           <p className='font-bold text-gray-500'>Observações</p>
           <p className='font-bold text-gray-500'>Cor favorita</p>
         </div>
-        {list.map((client, index) => (
-          <div key={index} className='w-full'>
-            <ClientListItem {...client} />
-            {index !== clients.length - 1 && <Divider />}
-          </div>
-        ))}
+        {filteredList &&
+          filteredList.map((client, index) => (
+            <div key={index} className='w-full'>
+              <ClientListItem {...client} />
+              {index !== filteredList.length - 1 && <Divider />}
+            </div>
+          ))}
       </div>
     </div>
   );
