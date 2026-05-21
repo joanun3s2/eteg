@@ -27,7 +27,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: sh -c "pnpm install && pnpm db:generate && pnpm db:migrate && pnpm db:seed"
+    command: sh -c "pnpm install && pnpm db:push && pnpm db:seed"
     restart: 'no'
 
   api:

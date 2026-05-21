@@ -85,21 +85,13 @@ The database runs in a Docker container. Start it with:
 docker compose up -d postgres
 ```
 
-#### 4. Generate Database Migrations
+#### 4. Synchronize Database
 
 ```bash
-pnpm run db:generate
+pnpm run db:push
 ```
 
-Generates migration files based on your Drizzle schema definitions.
-
-#### 5. Run Database Migrations
-
-```bash
-pnpm run db:migrate
-```
-
-Applies the generated migrations to the database, creating the necessary tables and schema.
+Synchronize models with database skipping the need of generate and migrate.
 
 #### 6. Seed Database
 
@@ -127,6 +119,7 @@ Starts the development server with hot-reload using `tsx watch`.
 - `db:migrate` - Apply database migrations
 - `db:studio` - Open Drizzle Studio (database GUI)
 - `db:seed` - Seed the database with initial data
+- `db:push` - Synchronize models with database skipping the need of generate and migrate
 
 ## Database
 
